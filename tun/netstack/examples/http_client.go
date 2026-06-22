@@ -13,9 +13,9 @@ import (
 	"net/http"
 	"net/netip"
 
-	"github.com/amnezia-vpn/amneziawg-go/conn"
-	"github.com/amnezia-vpn/amneziawg-go/device"
-	"github.com/amnezia-vpn/amneziawg-go/tun/netstack"
+	"github.com/K900/amneziawg-go/conn"
+	"github.com/K900/amneziawg-go/device"
+	"github.com/K900/amneziawg-go/tun/netstack"
 )
 
 func main() {

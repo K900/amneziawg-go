@@ -5,7 +5,7 @@
 
 package device
 
-import "github.com/amnezia-vpn/amneziawg-go/conn"
+import "github.com/K900/amneziawg-go/conn"
 
 /* Reduce memory consumption for Android */
 

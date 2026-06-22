@@ -6,9 +6,9 @@ import (
 	"net"
 	"net/netip"
 
-	"github.com/amnezia-vpn/amneziawg-go/conn"
-	"github.com/amnezia-vpn/amneziawg-go/device"
-	"github.com/amnezia-vpn/amneziawg-go/tun/netstack"
+	"github.com/K900/amneziawg-go/conn"
+	"github.com/K900/amneziawg-go/device"
+	"github.com/K900/amneziawg-go/tun/netstack"
 	"golang.getoutline.org/sdk/transport"
 	"gvisor.dev/gvisor/pkg/tcpip/adapters/gonet"
 )
