@@ -552,10 +552,11 @@ func (device *Device) handleDeviceLine(ipcDev *ipcSetDevice, key, value string) 
 
 // An ipcSetPeer is the current state of an IPC set operation on a peer.
 type ipcSetPeer struct {
-	*Peer        // Peer is the current peer being operated on
-	dummy   bool // dummy reports whether this peer is a temporary, placeholder peer
-	created bool // new reports whether this is a newly created peer
-	pkaOn   bool // pkaOn reports whether the peer had the persistent keepalive turn on
+	*Peer                // Peer is the current peer being operated on
+	dummy           bool // dummy reports whether this peer is a temporary, placeholder peer
+	created         bool // new reports whether this is a newly created peer
+	pkaOn           bool // pkaOn reports whether the peer had the persistent keepalive turn on
+	endpointChanged bool // the endpoint address changed
 }
 
 func (peer *ipcSetPeer) handlePostConfig() {
@@ -569,6 +570,9 @@ func (peer *ipcSetPeer) handlePostConfig() {
 		peer.Start()
 		if peer.pkaOn {
 			peer.SendKeepalive()
+		}
+		if peer.endpointChanged && peer.needsHandshake() {
+			peer.SendHandshakeInitiationOnEndpointChange()
 		}
 		peer.SendStagedPackets()
 	}
@@ -657,8 +661,12 @@ func (device *Device) handlePeerLine(
 			return ipcErrorf(ipc.IpcErrorInvalid, "failed to set endpoint %v: %w", value, err)
 		}
 		peer.endpoint.Lock()
-		defer peer.endpoint.Unlock()
+		// Only an actual change of an existing endpoint triggers a handshake.
+		if peer.endpoint.val != nil && peer.endpoint.val.DstToString() != endpoint.DstToString() {
+			peer.endpointChanged = true
+		}
 		peer.endpoint.val = endpoint
+		peer.endpoint.Unlock()
 
 	case "persistent_keepalive_interval":
 		device.log.Verbosef("%v - UAPI: Updating persistent keepalive interval", peer.Peer)
