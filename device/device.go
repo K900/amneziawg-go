@@ -14,10 +14,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/amnezia-vpn/amneziawg-go/v3/conn"
-	"github.com/amnezia-vpn/amneziawg-go/v3/ratelimiter"
-	"github.com/amnezia-vpn/amneziawg-go/v3/rwcancel"
-	"github.com/amnezia-vpn/amneziawg-go/v3/tun"
+	"github.com/K900/amneziawg-go/conn"
+	"github.com/K900/amneziawg-go/ratelimiter"
+	"github.com/K900/amneziawg-go/rwcancel"
+	"github.com/K900/amneziawg-go/tun"
 )
 
 type Device struct {

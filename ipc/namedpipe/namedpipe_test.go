@@ -20,7 +20,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/amnezia-vpn/amneziawg-go/v3/ipc/namedpipe"
+	"github.com/K900/amneziawg-go/ipc/namedpipe"
 	"golang.org/x/sys/windows"
 )
 
