@@ -105,7 +105,7 @@ func expiredRetransmitHandshake(peer *Peer, d time.Duration) {
 		/* We clear the endpoint address src address, in case this is the cause of trouble. */
 		peer.markEndpointSrcForClearing()
 
-		peer.SendHandshakeInitiation(false)
+		peer.SendHandshakeInitiation(true)
 	}
 }
 
@@ -123,7 +123,7 @@ func expiredNewHandshake(peer *Peer, d time.Duration) {
 	peer.device.log.Verbosef("%s - Retrying handshake because we stopped hearing back after %d seconds", peer, int(d.Seconds()))
 	/* We clear the endpoint address src address, in case this is the cause of trouble. */
 	peer.markEndpointSrcForClearing()
-	peer.SendHandshakeInitiation(true)
+	peer.SendHandshakeInitiation(false)
 }
 
 func expiredZeroKeyMaterial(peer *Peer, d time.Duration) {
